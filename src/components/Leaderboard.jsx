@@ -56,7 +56,7 @@ export function Leaderboard({ gameState }) {
           padding: '0.35rem 0.85rem',
           borderRadius: '4px'
         }}>
-          * Interactive demo telemetry. User rank reflects real-time local storage XP.
+          * Interactive demo telemetry. User rank reflects real-time investigation metrics.
         </div>
       </div>
 
@@ -102,7 +102,7 @@ export function Leaderboard({ gameState }) {
           <div>RANK</div>
           <div>DETECTIVE</div>
           <div>CASES SOLVED</div>
-          <div style={{ textAlign: 'right' }}>XP SCORE</div>
+          <div style={{ textAlign: 'right' }}>SCORE</div>
         </div>
 
         {currentList.map((player) => {
@@ -141,7 +141,7 @@ export function Leaderboard({ gameState }) {
               </div>
 
               <div style={{ textAlign: 'right', color: 'var(--amber-primary)', fontWeight: 700 }}>
-                {player.xp.toLocaleString()} XP
+                {player.xp.toLocaleString()} pts
               </div>
             </div>
           );

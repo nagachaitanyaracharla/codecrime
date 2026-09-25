@@ -27,7 +27,7 @@ export function HintSystem({ hints, revealedCount, onUnlockHint, onClose }) {
 
         <div className="modal-content-body">
           <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
-            Requesting hints will narrow down the suspect bug, but each clue incurs an XP penalty on your final case score.
+            Requesting hints will narrow down the suspect bug to assist your forensic analysis.
           </p>
 
           <div className="hint-levels-list">
@@ -42,8 +42,8 @@ export function HintSystem({ hints, revealedCount, onUnlockHint, onClose }) {
                     <span className="hint-step-title">
                       LEVEL {hint.level} HINT
                     </span>
-                    <span className="hint-step-cost">
-                      {isRevealed ? "REVEALED" : `-${hint.cost} XP`}
+                    <span className="hint-step-cost" style={{ color: isRevealed ? 'var(--green-primary)' : 'var(--text-dim)' }}>
+                      {isRevealed ? "REVEALED" : "LOCKED"}
                     </span>
                   </div>
                   {isRevealed ? (
@@ -58,11 +58,7 @@ export function HintSystem({ hints, revealedCount, onUnlockHint, onClose }) {
             })}
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div style={{ fontFamily: 'var(--font-code)', fontSize: '0.8rem', color: 'var(--amber-primary)' }}>
-              Total penalty accrued: -{hints.slice(0, revealedCount).reduce((acc, h) => acc + h.cost, 0)} XP
-            </div>
-
+          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             {hasMoreHints ? (
               <button 
                 className="btn-cyber-primary"
@@ -70,7 +66,7 @@ export function HintSystem({ hints, revealedCount, onUnlockHint, onClose }) {
                 style={{ padding: '0.6rem 1.25rem', fontSize: '0.88rem' }}
               >
                 <Lightbulb size={16} />
-                <span>UNLOCK LEVEL {currentLevel + 1} (-{nextHint.cost} XP)</span>
+                <span>UNLOCK LEVEL {currentLevel + 1}</span>
               </button>
             ) : (
               <span style={{ fontFamily: 'var(--font-code)', fontSize: '0.82rem', color: 'var(--text-muted)' }}>

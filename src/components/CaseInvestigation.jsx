@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Play, Lightbulb, CheckCircle2, AlertOctagon, Clock, Award, ShieldCheck, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Play, Lightbulb, CheckCircle2, AlertOctagon, Clock, ShieldCheck, RefreshCw } from 'lucide-react';
 import { CodeEditor } from './CodeEditor';
 import { EvidenceBoard } from './EvidenceBoard';
 import { Terminal } from './Terminal';
@@ -170,10 +170,6 @@ export function CaseInvestigation({
             <span>{formatTime(secondsRemaining)}</span>
           </div>
 
-          <div className="hud-metric-pill xp" title="Potential XP reward">
-            <Award size={15} />
-            <span>{caseData.reward} XP</span>
-          </div>
 
           <div className="hud-metric-pill progress" title="Case progression">
             <ShieldCheck size={15} />
@@ -281,7 +277,7 @@ export function CaseInvestigation({
                 <div style={{ fontSize: '0.88rem', color: 'var(--cyan-primary)' }}>{solvedStats.rootCause}</div>
               </div>
 
-              <div className="success-stats-grid">
+              <div className="success-stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
                 <div className="success-stat-item">
                   <div className="stat-item-label">TIME ELAPSED</div>
                   <div className="stat-item-value">{solvedStats.timeString}</div>
@@ -293,10 +289,6 @@ export function CaseInvestigation({
                 <div className="success-stat-item">
                   <div className="stat-item-label">ACCURACY</div>
                   <div className="stat-item-value green">100%</div>
-                </div>
-                <div className="success-stat-item">
-                  <div className="stat-item-label">XP EARNED</div>
-                  <div className="stat-item-value green">+{solvedStats.xpEarned} XP</div>
                 </div>
               </div>
 

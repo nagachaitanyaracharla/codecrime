@@ -24,7 +24,7 @@ export function HowItWorks({ onStartInvestigation }) {
     {
       number: "04",
       title: "SOLVE THE CASE",
-      desc: "Submit your forensic solution, verify full regression pass, and earn XP badges.",
+      desc: "Submit your forensic solution, verify full regression pass, and earn case badges.",
       icon: <Trophy size={28} style={{ color: 'var(--purple-primary)' }} />
     }
   ];
