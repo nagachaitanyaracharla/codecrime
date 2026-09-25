@@ -69,7 +69,6 @@ export function App() {
         {currentView === 'landing' && (
           <Hero 
             onStartInvestigation={() => setCurrentView('cases')}
-            onViewCases={() => setCurrentView('cases')}
           />
         )}
 

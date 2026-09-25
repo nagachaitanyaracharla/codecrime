@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Terminal as TerminalIcon, ShieldAlert, Cpu, Sparkles } from 'lucide-react';
+import { ArrowRight, Terminal as TerminalIcon, Cpu, Sparkles } from 'lucide-react';
 import { sound } from '../utils/sound';
 
-export function Hero({ onStartInvestigation, onViewCases }) {
+export function Hero({ onStartInvestigation }) {
   const [typedLines, setTypedLines] = useState([]);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
 
@@ -28,11 +28,6 @@ export function Hero({ onStartInvestigation, onViewCases }) {
   const handleStart = () => {
     sound.click();
     onStartInvestigation();
-  };
-
-  const handleViewCases = () => {
-    sound.click();
-    onViewCases();
   };
 
   return (
@@ -65,15 +60,6 @@ export function Hero({ onStartInvestigation, onViewCases }) {
             >
               <span>START INVESTIGATION</span>
               <ArrowRight size={18} />
-            </button>
-
-            <button 
-              className="btn-cyber-secondary" 
-              onClick={handleViewCases}
-              id="view-case-files-btn"
-            >
-              <ShieldAlert size={18} style={{ color: '#00f0ff' }} />
-              <span>VIEW CASE FILES</span>
             </button>
           </div>
 
