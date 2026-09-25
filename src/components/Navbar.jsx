@@ -59,14 +59,6 @@ export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) 
           </li>
           <li>
             <button 
-              className={`nav-link-btn ${currentView === 'profile' ? 'active' : ''}`}
-              onClick={() => handleNavClick('profile')}
-            >
-              Profile
-            </button>
-          </li>
-          <li>
-            <button 
               className={`nav-link-btn ${currentView === 'about' ? 'active' : ''}`}
               onClick={() => handleNavClick('about')}
             >
@@ -123,7 +115,7 @@ export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) 
           gap: '1rem',
           zIndex: 99
         }}>
-          {['landing', 'cases', 'how-it-works', 'profile', 'about'].map(v => (
+          {['landing', 'cases', 'how-it-works', 'about'].map(v => (
             <button
               key={v}
               style={{

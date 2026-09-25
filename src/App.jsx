@@ -5,7 +5,6 @@ import { CaseSelection } from './components/CaseSelection';
 import { CaseInvestigation } from './components/CaseInvestigation';
 import { HowItWorks } from './components/HowItWorks';
 import { Leaderboard } from './components/Leaderboard';
-import { Profile } from './components/Profile';
 import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { CASE_FILES } from './data/cases';
@@ -104,11 +103,6 @@ export function App() {
           />
         )}
 
-        {currentView === 'profile' && (
-          <Profile 
-            gameState={gameState}
-          />
-        )}
 
         {currentView === 'about' && (
           <About />

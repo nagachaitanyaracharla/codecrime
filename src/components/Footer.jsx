@@ -38,9 +38,6 @@ export function Footer({ onNavigate }) {
               <div style={{ fontSize: '1.05rem', color: '#fff', fontWeight: 700, margin: '0.2rem 0' }}>
                 NAGA CHAITANYA RACHARLA
               </div>
-              <div style={{ color: 'var(--cyan-primary)', fontSize: '0.82rem' }}>
-                Computer Science Engineering Student
-              </div>
             </div>
           </div>
 

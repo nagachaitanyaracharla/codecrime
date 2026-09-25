@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Cpu, Code2, BookOpen, User } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 export function About() {
   return (
@@ -24,25 +24,6 @@ export function About() {
         <div className="about-creator-box">
           <span className="about-creator-label">CREATED BY</span>
           <h2 className="about-creator-name">NAGA CHAITANYA RACHARLA</h2>
-          <div className="about-creator-role">
-            Computer Science Engineering Student
-          </div>
-          <div style={{
-            marginTop: '1rem',
-            paddingTop: '1rem',
-            borderTop: '1px solid var(--border-subtle)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-            fontFamily: 'var(--font-code)',
-            fontSize: '0.8rem',
-            color: 'var(--text-dim)',
-            flexWrap: 'wrap'
-          }}>
-            <span style={{ color: 'var(--cyan-primary)' }}>• 100% Free Open Technologies</span>
-            <span style={{ color: 'var(--green-primary)' }}>• Zero Paid APIs</span>
-            <span style={{ color: 'var(--amber-primary)' }}>• Client-side Safe Architecture</span>
-          </div>
         </div>
       </div>
     </div>
