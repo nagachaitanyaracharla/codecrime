@@ -1671,16 +1671,13 @@ body {
 .footer {
   background: #06080e;
   border-top: 1px solid var(--border-subtle);
-  padding: 4rem 1.5rem 2.5rem;
+  padding: 3rem 1.5rem;
   margin-top: auto;
 }
 
 .footer-content {
   max-width: 1380px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
 }
 
 .footer-top-row {
@@ -1730,19 +1727,6 @@ body {
 
 .footer-link-item:hover {
   color: var(--cyan-primary);
-}
-
-.footer-bottom-row {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  font-family: var(--font-code);
-  font-size: 0.78rem;
-  color: var(--text-dim);
 }
 
 /* ==========================================================================

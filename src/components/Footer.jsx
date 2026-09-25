@@ -89,19 +89,6 @@ export function Footer({ onNavigate }) {
             </div>
           </div>
         </div>
-
-        <div className="footer-bottom-row">
-          <div>
-            © 2026 NAGA CHAITANYA RACHARLA. Built with free technologies.
-          </div>
-          <div style={{ display: 'flex', gap: '1.25rem' }}>
-            <span style={{ color: 'var(--text-dim)' }}>React 19</span>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <span style={{ color: 'var(--text-dim)' }}>Vite</span>
-            <span style={{ color: 'var(--text-dim)' }}>•</span>
-            <span style={{ color: 'var(--text-dim)' }}>Web Audio API</span>
-          </div>
-        </div>
       </div>
     </footer>
   );
