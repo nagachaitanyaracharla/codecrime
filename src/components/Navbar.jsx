@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Terminal, Shield, Award, Volume2, VolumeX, Menu, X, Code, Search } from 'lucide-react';
+import { Shield, Volume2, VolumeX, Menu, X, Search } from 'lucide-react';
 import { sound } from '../utils/sound';
 
 export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const totalXp = gameState.baseXp + gameState.earnedXp;
 
   const handleNavClick = (view) => {
     sound.click();
@@ -60,14 +59,6 @@ export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) 
           </li>
           <li>
             <button 
-              className={`nav-link-btn ${currentView === 'leaderboard' ? 'active' : ''}`}
-              onClick={() => handleNavClick('leaderboard')}
-            >
-              Leaderboard
-            </button>
-          </li>
-          <li>
-            <button 
               className={`nav-link-btn ${currentView === 'profile' ? 'active' : ''}`}
               onClick={() => handleNavClick('profile')}
             >
@@ -96,12 +87,6 @@ export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) 
             {gameState.soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
             <span>{gameState.soundEnabled ? "SFX ON" : "SFX OFF"}</span>
           </button>
-
-          {/* XP Badge */}
-          <div className="xp-badge-nav" title="Detective XP">
-            <Award size={15} />
-            <span>{totalXp.toLocaleString()} XP</span>
-          </div>
 
           {/* Primary CTA */}
           <button 
@@ -138,7 +123,7 @@ export function Navbar({ currentView, setCurrentView, gameState, toggleSound }) 
           gap: '1rem',
           zIndex: 99
         }}>
-          {['landing', 'cases', 'how-it-works', 'leaderboard', 'profile', 'about'].map(v => (
+          {['landing', 'cases', 'how-it-works', 'profile', 'about'].map(v => (
             <button
               key={v}
               style={{
