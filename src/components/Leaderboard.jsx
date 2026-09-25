@@ -101,7 +101,7 @@ export function Leaderboard({ gameState }) {
         }}>
           <div>RANK</div>
           <div>DETECTIVE</div>
-          <div>CASES SOLVED</div>
+          <div>CASES</div>
           <div style={{ textAlign: 'right' }}>SCORE</div>
         </div>
 

@@ -12,8 +12,6 @@ export function CaseSelection({ onSelectCase, gameState }) {
     ? CASE_FILES
     : CASE_FILES.filter(c => c.language.toLowerCase() === selectedLanguage.toLowerCase());
 
-  const solvedCount = CASE_FILES.filter(c => gameState.solvedCaseIds.includes(c.id)).length;
-
   return (
     <div className="cases-page-container">
       <div className="page-header-block">
@@ -26,19 +24,6 @@ export function CaseSelection({ onSelectCase, gameState }) {
           Choose a case and begin your investigation. Inspect suspect routines, uncover forensic evidence, and patch the anomalies.
         </p>
 
-        {/* Telemetry quick bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '1.5rem',
-          fontFamily: 'var(--font-code)',
-          fontSize: '0.85rem'
-        }}>
-          <span style={{ color: 'var(--cyan-primary)' }}>
-            <strong>{solvedCount}</strong> / {CASE_FILES.length} Cases Solved
-          </span>
-        </div>
 
         {/* Language Filter */}
         <div style={{
@@ -76,7 +61,6 @@ export function CaseSelection({ onSelectCase, gameState }) {
             key={caseItem.id}
             caseItem={caseItem}
             onSelectCase={onSelectCase}
-            isSolved={gameState.solvedCaseIds.includes(caseItem.id)}
           />
         ))}
       </div>

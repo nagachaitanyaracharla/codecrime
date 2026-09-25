@@ -1,8 +1,8 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, FileCode } from 'lucide-react';
+import { ArrowRight, FileCode } from 'lucide-react';
 import { sound } from '../utils/sound';
 
-export function CaseCard({ caseItem, onSelectCase, isSolved }) {
+export function CaseCard({ caseItem, onSelectCase }) {
   const getDifficultyClass = (diff) => {
     switch (diff.toLowerCase()) {
       case 'beginner': return 'beginner';
@@ -23,23 +23,6 @@ export function CaseCard({ caseItem, onSelectCase, isSolved }) {
         <div className="case-card-top">
           <span className="case-id-tag">{caseItem.caseNumber}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {isSolved && (
-              <span style={{ 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '0.3rem', 
-                fontSize: '0.72rem', 
-                color: '#00ff88',
-                background: 'rgba(0, 255, 136, 0.12)',
-                padding: '0.2rem 0.5rem',
-                borderRadius: '4px',
-                fontFamily: 'var(--font-code)',
-                fontWeight: 700
-              }}>
-                <CheckCircle2 size={12} />
-                SOLVED
-              </span>
-            )}
             <span className={`difficulty-badge ${getDifficultyClass(caseItem.difficulty)}`}>
               {caseItem.difficulty}
             </span>

@@ -74,7 +74,7 @@ export function validateCaseCode(caseData, userCode) {
       const allPassed = testResults.every(t => t.passed);
       if (allPassed) {
         logs.push("> ALL TEST CASES PASSED VERIFICATION.");
-        logs.push("> Status: CASE SOLVED. Evidence confirmed.");
+        logs.push("> Status: All tests verified. Evidence confirmed.");
       } else {
         logs.push("> VERIFICATION FAILED: Ledger calculations do not match expected product.");
       }
@@ -129,7 +129,7 @@ export function validateCaseCode(caseData, userCode) {
       const allPassed = isFixed;
       if (allPassed) {
         logs.push("> Scope analysis confirmed: 'role' variable is safely bound in outer scope.");
-        logs.push("> Status: CASE SOLVED. Memory token verified.");
+        logs.push("> Status: All tests verified. Memory token verified.");
       } else {
         logs.push("> VERIFICATION FAILED: Variable 'role' is unreachable outside block scope.");
       }
@@ -186,7 +186,7 @@ export function validateCaseCode(caseData, userCode) {
 
       if (passed) {
         logs.push("> DATABASE VERIFICATION CONFIRMED: Correct cadets retrieved.");
-        logs.push("> Status: CASE SOLVED.");
+        logs.push("> Status: All tests verified.");
       } else {
         logs.push("> VERIFICATION FAILED: Inverted condition selected low-scoring records.");
       }

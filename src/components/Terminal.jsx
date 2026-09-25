@@ -90,24 +90,20 @@ export function Terminal({ logs, testResults, isEvaluating, lastStatus }) {
           </div>
         )}
 
-        {lastStatus && (
+        {(lastStatus === 'FAILED' || lastStatus === 'TESTS FAILED') && (
           <div style={{
             marginTop: '1.25rem',
             padding: '0.75rem',
             borderRadius: '4px',
-            background: lastStatus === 'SOLVED' ? 'rgba(0, 255, 136, 0.1)' : 'rgba(255, 51, 102, 0.1)',
-            border: `1px solid ${lastStatus === 'SOLVED' ? 'var(--border-green)' : 'var(--border-red)'}`,
+            background: 'rgba(255, 51, 102, 0.1)',
+            border: '1px solid var(--border-red)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
             fontWeight: 700
           }}>
-            {lastStatus === 'SOLVED' ? (
-              <CheckCircle size={16} style={{ color: 'var(--green-primary)' }} />
-            ) : (
-              <AlertOctagon size={16} style={{ color: 'var(--red-primary)' }} />
-            )}
-            <span style={{ color: lastStatus === 'SOLVED' ? 'var(--green-primary)' : 'var(--red-primary)' }}>
+            <AlertOctagon size={16} style={{ color: 'var(--red-primary)' }} />
+            <span style={{ color: 'var(--red-primary)' }}>
               INVESTIGATION STATUS: {lastStatus}
             </span>
           </div>

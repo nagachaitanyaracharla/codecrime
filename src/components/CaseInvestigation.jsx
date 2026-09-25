@@ -35,9 +35,7 @@ export function CaseInvestigation({
   const [showHintModal, setShowHintModal] = useState(false);
 
   // Outcome modals
-  const [isSolvedModalOpen, setIsSolvedModalOpen] = useState(false);
   const [isFailedModalOpen, setIsFailedModalOpen] = useState(false);
-  const [solvedStats, setSolvedStats] = useState(null);
 
   // Reset code & state if case changes
   useEffect(() => {
@@ -54,19 +52,17 @@ export function CaseInvestigation({
     setSecondsRemaining(caseData.timeLimit || 300);
     setTimeElapsed(0);
     setHintsRevealed(0);
-    setIsSolvedModalOpen(false);
     setIsFailedModalOpen(false);
   }, [caseData.id]);
 
   // Live Timer Countdown
   useEffect(() => {
-    if (isSolvedModalOpen) return;
     const interval = setInterval(() => {
       setSecondsRemaining(prev => Math.max(0, prev - 1));
       setTimeElapsed(prev => prev + 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, [isSolvedModalOpen]);
+  }, []);
 
   // Format MM:SS
   const formatTime = (secs) => {
@@ -108,24 +104,14 @@ export function CaseInvestigation({
 
       if (res.success) {
         sound.caseSolved();
-        setLastStatus('SOLVED');
-        const { nextState, finalReward, hintPenalty } = recordCaseSolved(
+        setLastStatus(null);
+        const { nextState } = recordCaseSolved(
           caseData.id, 
           caseData.reward, 
           hintsRevealed, 
           timeElapsed
         );
         onCaseSolvedUpdate(nextState);
-
-        setSolvedStats({
-          bugIdentified: caseData.bugIdentified,
-          rootCause: caseData.rootCause,
-          timeString: formatTime(timeElapsed),
-          hintsUsed: hintsRevealed,
-          xpEarned: finalReward,
-          hintPenalty
-        });
-        setIsSolvedModalOpen(true);
       } else {
         sound.error();
         setLastStatus('FAILED');
@@ -175,6 +161,28 @@ export function CaseInvestigation({
             <ShieldCheck size={15} />
             <span>PROGRESS: {caseIndex + 1} / {totalCases}</span>
           </div>
+
+          {caseIndex + 1 < totalCases && (
+            <button
+              className="hud-metric-pill"
+              onClick={() => { sound.click(); onNextCase(); }}
+              title="Proceed to next case"
+              style={{
+                background: 'rgba(0, 240, 255, 0.08)',
+                color: 'var(--cyan-primary)',
+                border: '1px solid var(--border-cyan)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                fontFamily: 'var(--font-code)',
+                fontSize: '0.8rem'
+              }}
+            >
+              <span>NEXT CASE</span>
+              <Play size={12} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -253,70 +261,6 @@ export function CaseInvestigation({
         />
       )}
 
-      {/* Case Solved Modal */}
-      {isSolvedModalOpen && solvedStats && (
-        <div className="modal-overlay" role="dialog" aria-modal="true">
-          <div className="modal-hud-box" style={{ maxWidth: 620, border: '2px solid var(--green-primary)' }}>
-            <div className="success-modal-header">
-              <div className="success-badge-icon">
-                <ShieldCheck size={36} />
-              </div>
-              <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: '#fff', letterSpacing: '0.05em' }}>
-                CASE SOLVED
-              </h2>
-              <p style={{ color: 'var(--green-primary)', fontFamily: 'var(--font-code)', fontSize: '0.9rem', marginTop: '0.3rem' }}>
-                "Excellent detective work. The vulnerability has been neutralized."
-              </p>
-            </div>
-
-            <div className="modal-content-body" style={{ paddingTop: 0 }}>
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', marginBottom: '1.25rem' }}>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', fontFamily: 'var(--font-code)' }}>BUG IDENTIFIED:</div>
-                <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#fff' }}>{solvedStats.bugIdentified}</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-dim)', fontFamily: 'var(--font-code)', marginTop: '0.5rem' }}>ROOT CAUSE:</div>
-                <div style={{ fontSize: '0.88rem', color: 'var(--cyan-primary)' }}>{solvedStats.rootCause}</div>
-              </div>
-
-              <div className="success-stats-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
-                <div className="success-stat-item">
-                  <div className="stat-item-label">TIME ELAPSED</div>
-                  <div className="stat-item-value">{solvedStats.timeString}</div>
-                </div>
-                <div className="success-stat-item">
-                  <div className="stat-item-label">HINTS USED</div>
-                  <div className="stat-item-value amber">{solvedStats.hintsUsed} of 3</div>
-                </div>
-                <div className="success-stat-item">
-                  <div className="stat-item-label">ACCURACY</div>
-                  <div className="stat-item-value green">100%</div>
-                </div>
-              </div>
-
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.6, marginBottom: '1.5rem', background: 'rgba(0, 240, 255, 0.04)', padding: '0.85rem', borderRadius: '6px' }}>
-                <strong>Forensic Briefing:</strong> {caseData.explanation}
-              </p>
-
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-                <button 
-                  className="btn-cyber-secondary"
-                  onClick={() => { sound.click(); onBackToCases(); }}
-                >
-                  RETURN TO CASE FILES
-                </button>
-                {caseIndex + 1 < totalCases && (
-                  <button 
-                    className="btn-cyber-primary"
-                    onClick={() => { sound.click(); onNextCase(); }}
-                  >
-                    <span>NEXT CASE</span>
-                    <Play size={16} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Case Failed Modal */}
       {isFailedModalOpen && (
