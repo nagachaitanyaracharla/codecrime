@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Play, Lightbulb, CheckCircle2, AlertOctagon, Clock, ShieldCheck, RefreshCw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Play, Lightbulb, CheckCircle2, AlertOctagon, Clock, ShieldCheck, RefreshCw } from 'lucide-react';
 import { CodeEditor } from './CodeEditor';
 import { EvidenceBoard } from './EvidenceBoard';
 import { Terminal } from './Terminal';
@@ -35,6 +35,7 @@ export function CaseInvestigation({
   const [showHintModal, setShowHintModal] = useState(false);
 
   // Outcome modals
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isFailedModalOpen, setIsFailedModalOpen] = useState(false);
 
   // Reset code & state if case changes
@@ -53,16 +54,18 @@ export function CaseInvestigation({
     setTimeElapsed(0);
     setHintsRevealed(0);
     setIsFailedModalOpen(false);
+    setIsSuccessModalOpen(false);
   }, [caseData.id]);
 
   // Live Timer Countdown
   useEffect(() => {
+    if (isSuccessModalOpen) return;
     const interval = setInterval(() => {
       setSecondsRemaining(prev => Math.max(0, prev - 1));
       setTimeElapsed(prev => prev + 1);
     }, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isSuccessModalOpen]);
 
   // Format MM:SS
   const formatTime = (secs) => {
@@ -112,6 +115,7 @@ export function CaseInvestigation({
           timeElapsed
         );
         onCaseSolvedUpdate(nextState);
+        setIsSuccessModalOpen(true);
       } else {
         sound.error();
         setLastStatus('FAILED');
@@ -119,6 +123,20 @@ export function CaseInvestigation({
         setIsFailedModalOpen(true);
       }
     }, 450);
+  };
+
+  const isLastCase = caseIndex + 1 >= totalCases;
+
+  const handleNextCaseClick = () => {
+    sound.click();
+    setIsSuccessModalOpen(false);
+    onNextCase();
+  };
+
+  const handleBackToCasesClick = () => {
+    sound.click();
+    setIsSuccessModalOpen(false);
+    onBackToCases();
   };
 
   const handleResetCode = () => {
@@ -161,28 +179,6 @@ export function CaseInvestigation({
             <ShieldCheck size={15} />
             <span>PROGRESS: {caseIndex + 1} / {totalCases}</span>
           </div>
-
-          {caseIndex + 1 < totalCases && (
-            <button
-              className="hud-metric-pill"
-              onClick={() => { sound.click(); onNextCase(); }}
-              title="Proceed to next case"
-              style={{
-                background: 'rgba(0, 240, 255, 0.08)',
-                color: 'var(--cyan-primary)',
-                border: '1px solid var(--border-cyan)',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                fontFamily: 'var(--font-code)',
-                fontSize: '0.8rem'
-              }}
-            >
-              <span>NEXT CASE</span>
-              <Play size={12} />
-            </button>
-          )}
         </div>
       </div>
 
@@ -259,6 +255,70 @@ export function CaseInvestigation({
           onUnlockHint={() => setHintsRevealed(prev => Math.min(caseData.hints.length, prev + 1))}
           onClose={() => setShowHintModal(false)}
         />
+      )}
+
+      {/* Success Popup Modal */}
+      {isSuccessModalOpen && (
+        <div 
+          className="modal-overlay" 
+          role="dialog" 
+          aria-modal="true"
+          aria-labelledby="completion-modal-title"
+          style={{ zIndex: 1000 }}
+        >
+          <div className="completion-modal-box">
+            <div className="completion-modal-icon">
+              <CheckCircle2 size={30} />
+            </div>
+
+            <div className="completion-modal-status">
+              <span>✓ INVESTIGATION COMPLETE</span>
+            </div>
+
+            <h2 id="completion-modal-title" className="completion-modal-heading">
+              CASE SUCCESSFULLY COMPLETED
+            </h2>
+
+            <p className="completion-modal-desc">
+              "Excellent work. You identified the bug and fixed the case successfully."
+            </p>
+
+            {isLastCase ? (
+              <div className="completion-all-completed-wrap">
+                <div className="completion-all-completed-tag">
+                  ALL CASES COMPLETED
+                </div>
+                <div className="completion-modal-actions">
+                  <button 
+                    className="btn-cyber-primary completion-btn"
+                    onClick={handleBackToCasesClick}
+                    id="modal-back-to-cases-btn"
+                  >
+                    <span>BACK TO CASES</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="completion-modal-actions">
+                <button 
+                  className="btn-cyber-primary completion-btn"
+                  onClick={handleNextCaseClick}
+                  id="modal-next-case-btn"
+                >
+                  <span>NEXT CASE</span>
+                  <ArrowRight size={16} />
+                </button>
+                <button 
+                  className="btn-cyber-secondary completion-btn"
+                  onClick={handleBackToCasesClick}
+                  id="modal-back-to-cases-btn"
+                >
+                  <span>BACK TO CASES</span>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       )}
 
 
