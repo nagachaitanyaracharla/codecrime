@@ -31,17 +31,12 @@ export function CaseSelection({ onSelectCase, gameState }) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '2rem',
           marginTop: '1.5rem',
           fontFamily: 'var(--font-code)',
           fontSize: '0.85rem'
         }}>
           <span style={{ color: 'var(--cyan-primary)' }}>
             <strong>{solvedCount}</strong> / {CASE_FILES.length} Cases Solved
-          </span>
-          <span style={{ color: 'var(--text-dim)' }}>|</span>
-          <span style={{ color: 'var(--amber-primary)' }}>
-            <strong>1,600 XP</strong> Total Available
           </span>
         </div>
 

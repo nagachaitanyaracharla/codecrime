@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, Award, FileCode, Shield } from 'lucide-react';
+import { ArrowRight, CheckCircle2, FileCode } from 'lucide-react';
 import { sound } from '../utils/sound';
 
 export function CaseCard({ caseItem, onSelectCase, isSolved }) {
@@ -61,10 +61,6 @@ export function CaseCard({ caseItem, onSelectCase, isSolved }) {
             <FileCode size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
             {caseItem.language}
           </span>
-          <span className="case-reward-xp">
-            <Award size={13} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} />
-            +{caseItem.reward} XP
-          </span>
         </div>
 
         <button 
@@ -72,7 +68,7 @@ export function CaseCard({ caseItem, onSelectCase, isSolved }) {
           onClick={handleCardClick}
           id={`case-card-${caseItem.id}-btn`}
         >
-          <span>{isSolved ? "RE-EXAMINE CASE" : "INVESTIGATE CASE"}</span>
+          <span>INVESTIGATE CASE</span>
           <ArrowRight size={16} />
         </button>
       </div>
